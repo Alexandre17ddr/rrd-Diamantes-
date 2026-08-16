@@ -1,73 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RDD Diamantes - DLS26</title>
-    <style>
-        body { background: #0a0a0a; color: white; font-family: Arial; padding: 20px; max-width: 500px; margin: auto; }
-        h1 { text-align: center; color: #00ff88; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: #00ff88; font-weight: bold; }
-        input[type="text"], input[type="email"] { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 5px; box-sizing: border-box; }
-        .btn-primary { width: 100%; padding: 15px; background: #00ff88; color: black; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; }
-        .btn-primary:hover { background: #00dd77; }
-        small { color: #aaa; font-size: 12px; }
-        input[type="radio"] { margin-right: 8px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RDD DIAMANTES DLS26</title>
+<style>
+body { background: #000; color: #0f0; font-family: Arial; text-align: center; padding: 20px; }
+h1 { color: #0f0; font-size: 24px; margin-bottom: 5px; }
+.bonus { color: #ff0; font-size: 12px; font-weight: bold; }
+input, button { width: 90%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #0f0; background: #111; color: #fff; font-size: 16px; }
+.pacote { text-align: left; margin: 14px 20px; font-size: 15px; padding: 8px; border: 1px solid #222; border-radius: 6px; }
+button { background: #0f0; color: #000; font-weight: bold; border: none; cursor: pointer; margin-top: 15px; font-size: 18px; }
+label { font-size: 14px; color: #aaa; }
+</style>
 </head>
 <body>
-    <h1>💎 RDD DIAMANTES DLS26</h1>
-    
-    <div class="form-group">
-        <label for="nome">Nome Completo *</label>
-        <input type="text" id="nome" placeholder="Seu nome completo" required>
-    </div>
+<h1>💎 RDD DIAMANTES DLS26</h1>
+<p style="color:#ff0; font-weight:bold;">🎁 TODOS PACOTES COM BÓNUS!</p>
 
-    <div class="form-group">
-        <label for="email">Email da conta Google/Apple *</label>
-        <input type="email" id="email" placeholder="joao@gmail.com" required>
-        <small>É o mesmo email que você usa pra entrar no DLS26</small>
-    </div>
+<input type="text" id="nome" placeholder="Nome Completo *" required>
+<input type="email" id="email" placeholder="Email da conta Google/Apple *" required>
+<label>É o mesmo email que você usa pra entrar no DLS26</label>
+<input type="tel" id="whatsapp" placeholder="Número que pagou M-Pesa/e-Mola *" required>
+<label>Pra eu confirmar o pagamento</label>
 
-    <div class="form-group">
-        <label for="numero">Número que pagou M-Pesa/e-Mola *</label>
-        <input type="text" id="numero" placeholder="Ex: 841234567" required>
-        <small>Pra eu confirmar o pagamento</small>
-    </div>
+<h3>Escolha o Pacote *</h3>
+<div class="pacote"><input type="radio" name="pacote" value="250 Diamantes - 25MT"> 250 Diamantes - 25MT <div class="bonus">200 + 50 Bónus</div></div>
+<div class="pacote"><input type="radio" name="pacote" value="500 Diamantes - 50MT"> 500 Diamantes - 50MT <div class="bonus">400 + 100 Bónus</div></div>
+<div class="pacote"><input type="radio" name="pacote" value="1000 Diamantes - 100MT"> 1000 Diamantes - 100MT <div class="bonus">800 + 200 Bónus</div></div>
+<div class="pacote"><input type="radio" name="pacote" value="1500 Diamantes - 200MT"> 1500 Diamantes - 200MT <div class="bonus">1200 + 300 Bónus</div></div>
+<div class="pacote"><input type="radio" name="pacote" value="3000 Diamantes - 400MT"> 3000 Diamantes - 400MT <div class="bonus">2400 + 600 Bónus</div></div>
+<div class="pacote"><input type="radio" name="pacote" value="5000 Diamantes - 500MT"> 5000 Diamantes - 500MT <div class="bonus">4000 + 1000 Bónus</div></div>
 
-    <div class="form-group">
-        <label>Escolha o Pacote *</label>
-        <label><input type="radio" name="pacote" value="400 Diamantes - 100MT" required> 400 Diamantes - 100MT</label><br>
-        <label><input type="radio" name="pacote" value="1100 Diamantes - 250MT"> 1100 Diamantes - 250MT</label><br>
-        <label><input type="radio" name="pacote" value="2200 Diamantes - 450MT"> 2200 Diamantes - 450MT</label>
-    </div>
-
-    <p style="color: #00ff88; font-size: 13px; text-align: center;">Depois de enviar, anexe o comprovativo no WhatsApp</p>
-    <button class="btn-primary" onclick="enviarWhatsApp()">Enviar Pedido via WhatsApp</button>
+<p style="font-size:12px; color:#aaa;">Depois de enviar, anexe o comprovativo no WhatsApp</p>
+<button onclick="enviar()">Enviar Pedido via WhatsApp</button>
 
 <script>
-function enviarWhatsApp() {
-    let pacote = document.querySelector('input[name="pacote"]:checked');
-    let email = document.getElementById('email').value;
-    let nome = document.getElementById('nome').value;
-    let numero = document.getElementById('numero').value;
-
-    if(!nome || !email || !numero || !pacote) {
-        alert("⚠️ Preencha todos os campos obrigatórios *");
-        return;
-    }
-
-    let mensagem = `*NOVO PEDIDO RDD DIAMANTES* 💎%0A%0A` +
-                   `*Pacote:* ${pacote.value}%0A` +
-                   `*Email DLS26:* ${email}%0A` +
-                   `*Nome:* ${nome}%0A` +
-                   `*Número Pagamento:* ${numero}%0A%0A` +
-                   `_Por favor anexe o comprovativo de pagamento aqui_`;
-
-    let url = `https://wa.me/258853845605?text=${mensagem}`;
-    window.open(url, '_blank');
+function enviar() {
+  let nome = document.getElementById('nome').value;
+  let email = document.getElementById('email').value;
+  let zap = document.getElementById('whatsapp').value;
+  let pacote = document.querySelector('input[name="pacote"]:checked');
+  
+  if(!nome || !email || !zap || !pacote) { alert('Preencha todos os campos!'); return; }
+  
+  let msg = `Olá! Quero comprar diamantes DLS26%0A%0ANome: ${nome}%0AEmail: ${email}%0ANúmero Pagamento: ${zap}%0APacote: ${pacote.value}`;
+  window.open('https://wa.me/25884XXXXXXX?text='+msg, '_blank');
 }
 </script>
 </body>
-          </html>
+</html>
