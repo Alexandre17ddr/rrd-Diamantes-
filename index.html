@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RDD - Recarga DLS26</title>
+<style>
+body{background:#0a0a0a;color:white;font-family:Arial;text-align:center;padding:15px}
+h1{color:#00ff88}
+.pacote{background:#1a1a1a;padding:15px;margin:10px auto;border-radius:10px;border:2px solid #00ff88;max-width:400px}
+.bonus{color:#00ff88;font-size:14px;font-weight:bold}
+.btn{background:#00ff88;color:#000;padding:12px 25px;border:none;border-radius:8px;font-size:16px;cursor:pointer;margin:5px;font-weight:bold}
+input{padding:10px;width:90%;max-width:350px;margin:8px;border-radius:5px;border:none}
+.dados-pagamento{background:#222;padding:15px;border-radius:10px;margin:20px auto;max-width:400px;text-align:left}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:12px 15px;border-radius:50px;text-decoration:none;font-weight:bold}
+</style>
+</head>
+<body>
+<h1>💎 RDD DIAMANTES</h1>
+<p>Recarga DLS26 - Pagamento Manual</p>
+
+<!-- PACOTES -->
+<div class="pacote">
+  <h2>100 Diamantes</h2>
+  <p>25 MT</p>
+  <p class="bonus">+ 10 BÔNUS = 110 Total</p>
+  <button class="btn" onclick="comprar(100, 25, 10)">Comprar</button>
+</div>
+
+<div class="pacote">
+  <h2>200 Diamantes</h2>
+  <p>50 MT</p>
+  <p class="bonus">+ 25 BÔNUS = 225 Total</p>
+  <button class="btn" onclick="comprar(200, 50, 25)">Comprar</button>
+</div>
+
+<div class="pacote">
+  <h2>300 Diamantes</h2>
+  <p>75 MT</p>
+  <p class="bonus">+ 40 BÔNUS = 340 Total</p>
+  <button class="btn" onclick="comprar(300, 75, 40)">Comprar</button>
+</div>
+
+<div class="pacote">
+  <h2>400 Diamantes</h2>
+  <p>100 MT</p>
+  <p class="bonus">+ 60 BÔNUS = 460 Total</p>
+  <button class="btn" onclick="comprar(400, 100, 60)">Comprar</button>
+</div>
+
+<div class="pacote">
+  <h2>800 Diamantes</h2>
+  <p>200 MT</p>
+  <p class="bonus">+ 150 BÔNUS = 950 Total</p>
+  <button class="btn" onclick="comprar(800, 200, 150)">Comprar</button>
+</div>
+
+<div class="pacote">
+  <h2>1600 Diamantes</h2>
+  <p>400 MT</p>
+  <p class="bonus">+ 400 BÔNUS = 2000 Total</p>
+  <button class="btn" onclick="comprar(1600, 400, 400)">Comprar</button>
+</div>
+
+<!-- FORMULÁRIO -->
+<div id="form" style="display:none">
+  <h3>Passo 1: Faz o pagamento</h3>
+  <div class="dados-pagamento">
+    <p><b>M-Pesa:</b> 853845605 - Alexandre</p>
+    <p><b>e-Mola:</b> 878545605 - Alexandre</p>
+    <p><b>Pacote:</b> <span id="diamantes"></span> + <span id="bonus"></span> BÔNUS</p>
+    <p><b>Total:</b> <span id="total"></span> Diamantes</p>
+    <p><b>Valor:</b> <span id="valor"></span> MT</p>
+  </div>
+
+  <h3>Passo 2: Preenche os dados</h3>
+  <input id="id_jogo" placeholder="Seu ID do DLS26"><br>
+  <input id="nome" placeholder="Seu Nome Completo"><br>
+  <input id="telefone" placeholder="Seu número que pagou"><br>
+  <input id="comprovativo" placeholder="Cole o link do print aqui"><br>
+  <small>Depois de pagar, manda o print no WhatsApp e cola o link aqui</small><br><br>
+  
+  <button class="btn" onclick="enviarPedido()">Enviar Pedido</button>
+</div>
+
+<!-- BOTÃO WHATSAPP SUPORTE -->
+<a href="https://wa.me/258853845605" class="whatsapp" target="_blank">💬 Suporte</a>
+
+<script>
+let pacoteAtual = {};
+function comprar(diamantes, preco, bonus){
+  pacoteAtual = {diamantes, preco, bonus, total: diamantes + bonus};
+  document.getElementById('diamantes').innerText = diamantes;
+  document.getElementById('bonus').innerText = bonus;
+  document.getElementById('total').innerText = pacoteAtual.total;
+  document.getElementById('valor').innerText = preco;
+  document.getElementById('form').style.display = 'block';
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+function enviarPedido(){
+  const id = document.getElementById('id_jogo').value;
+  const nome = document.getElementById('nome').value;
+  const tel = document.getElementById('telefone').value;
+  const print = document.getElementById('comprovativo').value;
+  
+  if(!id || !nome || !tel){ alert("Preencha todos os dados obrigatórios"); return; }
+  
+  const msg = `NOVO PEDIDO RDD 💎%0A%0APacote: ${pacoteAtual.diamantes} + ${pacoteAtual.bonus} BÔNUS%0ATotal: ${pacoteAtual.total} Diamantes%0AValor: ${pacoteAtual.preco} MT%0A%0AID DLS26: ${id}%0ANome: ${nome}%0ATel: ${tel}%0AComprovativo: ${print}%0A%0AStatus: PENDENTE APROVAÇÃO`;
+  window.open(`https://wa.me/258853845605?text=${msg}`);
+  alert("Pedido enviado! Vamos aprovar em breve no WhatsApp.");
+}
+</script>
+</body>
+</html>
