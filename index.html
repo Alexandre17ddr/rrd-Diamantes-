@@ -8,10 +8,13 @@
 body { background: #000; color: #0f0; font-family: Arial; text-align: center; padding: 20px; }
 h1 { color: #0f0; font-size: 24px; margin-bottom: 5px; }
 .bonus { color: #ff0; font-size: 12px; font-weight: bold; }
+.pagamento { background: #111; border: 1px solid #0f0; border-radius: 8px; padding: 12px; margin: 10px 0; text-align: left; }
+.pagamento b { color: #ff0; }
 input, button { width: 90%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #0f0; background: #111; color: #fff; font-size: 16px; }
-.pacote { text-align: left; margin: 14px 20px; font-size: 15px; padding: 8px; border: 1px solid #222; border-radius: 6px; }
+input[type="file"] { background: #222; padding: 8px; }
+.pacote { text-align: left; margin: 14px 20px; font-size: 15px; padding: 10px; border: 1px solid #222; border-radius: 6px; }
 button { background: #0f0; color: #000; font-weight: bold; border: none; cursor: pointer; margin-top: 15px; font-size: 18px; }
-label { font-size: 14px; color: #aaa; }
+label { font-size: 14px; color: #aaa; display: block; text-align: left; margin-left: 5%; }
 </style>
 </head>
 <body>
@@ -21,8 +24,13 @@ label { font-size: 14px; color: #aaa; }
 <input type="text" id="nome" placeholder="Nome Completo *" required>
 <input type="email" id="email" placeholder="Email da conta Google/Apple *" required>
 <label>É o mesmo email que você usa pra entrar no DLS26</label>
-<input type="tel" id="whatsapp" placeholder="Número que pagou M-Pesa/e-Mola *" required>
-<label>Pra eu confirmar o pagamento</label>
+
+<h3>Forma de Pagamento *</h3>
+<div class="pagamento">
+  <p><b>M-Pesa 1:</b> 853845605 - Alexandre</p>
+  <p><b>M-Pesa 2:</b> 878545605 - Alexandre</p>
+</div>
+<input type="tel" id="whatsapp" placeholder="Número que pagou M-Pesa *" required>
 
 <h3>Escolha o Pacote *</h3>
 <div class="pacote"><input type="radio" name="pacote" value="250 Diamantes - 25MT"> 250 Diamantes - 25MT <div class="bonus">200 + 50 Bónus</div></div>
@@ -32,7 +40,10 @@ label { font-size: 14px; color: #aaa; }
 <div class="pacote"><input type="radio" name="pacote" value="3000 Diamantes - 400MT"> 3000 Diamantes - 400MT <div class="bonus">2400 + 600 Bónus</div></div>
 <div class="pacote"><input type="radio" name="pacote" value="5000 Diamantes - 500MT"> 5000 Diamantes - 500MT <div class="bonus">4000 + 1000 Bónus</div></div>
 
-<p style="font-size:12px; color:#aaa;">Depois de enviar, anexe o comprovativo no WhatsApp</p>
+<label>Anexe o Comprovativo *</label>
+<input type="file" id="comprovativo" accept="image/*" required>
+
+<p style="font-size:12px; color:#ff0;">Depois de clicar, envie a foto do comprovativo no WhatsApp</p>
 <button onclick="enviar()">Enviar Pedido via WhatsApp</button>
 
 <script>
@@ -41,11 +52,12 @@ function enviar() {
   let email = document.getElementById('email').value;
   let zap = document.getElementById('whatsapp').value;
   let pacote = document.querySelector('input[name="pacote"]:checked');
+  let foto = document.getElementById('comprovativo').files[0];
   
-  if(!nome || !email || !zap || !pacote) { alert('Preencha todos os campos!'); return; }
+  if(!nome ||!email ||!zap ||!pacote ||!foto) { alert('Preencha todos os campos e anexe a foto!'); return; }
   
-  let msg = `Olá! Quero comprar diamantes DLS26%0A%0ANome: ${nome}%0AEmail: ${email}%0ANúmero Pagamento: ${zap}%0APacote: ${pacote.value}`;
-  window.open('https://wa.me/25884XXXXXXX?text='+msg, '_blank');
+  let msg = `Olá! Quero comprar diamantes DLS26%0A%0ANome: ${nome}%0AEmail: ${email}%0ANúmero Pagamento: ${zap}%0APacote: ${pacote.value}%0A%0A*Já anexei o comprovativo acima*`;
+  window.location.href = 'https://wa.me/258853845605?text='+msg;
 }
 </script>
 </body>
